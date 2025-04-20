@@ -1,11 +1,11 @@
 package io.github.robledocastro.libraryapi.service;
 
-import io.github.robledocastro.libraryapi.controller.dto.AutorDTO;
 import io.github.robledocastro.libraryapi.exceptions.OperacaoNaoPermitidaException;
 import io.github.robledocastro.libraryapi.model.Autor;
 import io.github.robledocastro.libraryapi.repository.AutorRepository;
 import io.github.robledocastro.libraryapi.repository.LivroRepository;
 import io.github.robledocastro.libraryapi.validator.AutorValidator;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,17 +13,12 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class AutorService {
 
     private final AutorRepository repository;
     private final AutorValidator validator;
     private final LivroRepository livroRepository;
-
-    public AutorService(AutorRepository repository, AutorValidator validator, LivroRepository livroRepository){
-        this.repository = repository;
-        this.validator = validator;
-        this.livroRepository = livroRepository;
-    }
 
     public Autor salvar(Autor autor){
         validator.validar(autor);
