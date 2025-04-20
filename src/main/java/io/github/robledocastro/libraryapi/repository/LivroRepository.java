@@ -33,4 +33,5 @@ public interface LivroRepository extends JpaRepository<Livro, UUID> {
     @Query(" select l from Livro as l order by l.titulo, l.preco ")
     List<Livro> listarTodosOrdenadoPorTituloAndPreco();
 
+    boolean existsByAutor(Autor autor);
 }
