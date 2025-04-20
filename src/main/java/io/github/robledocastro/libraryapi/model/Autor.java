@@ -49,5 +49,4 @@ public class Autor {
     @Column(name = "id_usuario")
     private UUID idUsuario;
 
-
 }
