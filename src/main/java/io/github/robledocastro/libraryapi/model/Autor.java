@@ -50,6 +50,4 @@ public class Autor {
     private UUID idUsuario;
 
 
-
-
 }
