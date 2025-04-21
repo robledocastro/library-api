@@ -2,6 +2,7 @@ package io.github.robledocastro.libraryapi.controller.common;
 
 import io.github.robledocastro.libraryapi.controller.dto.ErroCampo;
 import io.github.robledocastro.libraryapi.controller.dto.ErroResposta;
+import io.github.robledocastro.libraryapi.exceptions.CampoInvalidoException;
 import io.github.robledocastro.libraryapi.exceptions.OperacaoNaoPermitidaException;
 import io.github.robledocastro.libraryapi.exceptions.RegistroDuplicadoException;
 import org.springframework.http.HttpStatus;
@@ -42,6 +43,16 @@ public class GlobalExceptionHandler {
     public ErroResposta handleOperacaoNaoPermitidaException(OperacaoNaoPermitidaException e){
         return ErroResposta.respostaPadrao(e.getMessage());
     }
+
+    @ExceptionHandler(CampoInvalidoException.class)
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+    public ErroResposta handleCampoInvalidoException(CampoInvalidoException e){
+        return new ErroResposta(
+                HttpStatus.UNPROCESSABLE_ENTITY.value(),
+                "Erro de validação.",
+                List.of(new ErroCampo(e.getCampo(), e.getMessage())));
+    }
+
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErroResposta handleErrosNaoTratados(RuntimeException e){
