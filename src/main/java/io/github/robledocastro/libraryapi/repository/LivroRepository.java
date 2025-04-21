@@ -3,6 +3,7 @@ package io.github.robledocastro.libraryapi.repository;
 import io.github.robledocastro.libraryapi.model.Autor;
 import io.github.robledocastro.libraryapi.model.Livro;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 
 import java.math.BigDecimal;
@@ -13,7 +14,7 @@ import java.util.UUID;
 /**
  * @see LivroRepositoryTest
  */
-public interface LivroRepository extends JpaRepository<Livro, UUID> {
+public interface LivroRepository extends JpaRepository<Livro, UUID>, JpaSpecificationExecutor<Livro> {
 
     // Query Methods
     List<Livro> findByAutor(Autor autor);
