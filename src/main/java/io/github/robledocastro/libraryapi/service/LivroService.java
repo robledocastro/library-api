@@ -3,14 +3,15 @@ package io.github.robledocastro.libraryapi.service;
 import io.github.robledocastro.libraryapi.model.GeneroLivro;
 import io.github.robledocastro.libraryapi.model.Livro;
 import io.github.robledocastro.libraryapi.repository.LivroRepository;
-import io.github.robledocastro.libraryapi.repository.specs.LivroSpecs;
 import io.github.robledocastro.libraryapi.validator.LivroValidator;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import java.util.List;
+import org.springframework.data.domain.Pageable;
+
 import java.util.Optional;
 import java.util.UUID;
 
@@ -36,7 +37,14 @@ public class LivroService {
         repository.delete(livro);
     }
 
-    public List<Livro> pesquisa(String isbn, String titulo, String nomeAutor, GeneroLivro genero, Integer anoPublicacao){
+    public Page<Livro> pesquisa(
+            String isbn,
+            String titulo,
+            String nomeAutor,
+            GeneroLivro genero,
+            Integer anoPublicacao,
+            Integer pagina,
+            Integer tamanhoPagina){
 
         // select * from livro where isbn = :isbn and genero = :genero
         //Specification<Livro> specs = Specification
@@ -70,7 +78,9 @@ public class LivroService {
             specs = specs.and(nomeAutorLike(nomeAutor));
         }
 
-        return repository.findAll(specs);
+        Pageable pageRequest = PageRequest.of(pagina, tamanhoPagina);
+
+        return repository.findAll(specs, pageRequest);
     }
 
     public void atualizar(Livro livro) {

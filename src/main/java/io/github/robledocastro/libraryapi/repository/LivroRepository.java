@@ -2,6 +2,7 @@ package io.github.robledocastro.libraryapi.repository;
 
 import io.github.robledocastro.libraryapi.model.Autor;
 import io.github.robledocastro.libraryapi.model.Livro;
+import org.hibernate.query.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
