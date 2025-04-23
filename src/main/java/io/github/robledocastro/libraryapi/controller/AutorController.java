@@ -3,11 +3,16 @@ package io.github.robledocastro.libraryapi.controller;
 import io.github.robledocastro.libraryapi.controller.dto.AutorDTO;
 import io.github.robledocastro.libraryapi.controller.mappers.AutorMapper;
 import io.github.robledocastro.libraryapi.model.Autor;
+import io.github.robledocastro.libraryapi.model.Usuario;
+import io.github.robledocastro.libraryapi.security.SecurityService;
 import io.github.robledocastro.libraryapi.service.AutorService;
+import io.github.robledocastro.libraryapi.service.UsuarioService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -26,7 +31,8 @@ public class AutorController implements GenericController{
 
     @PostMapping
     @PreAuthorize("hasRole('GERENTE')")
-    public ResponseEntity<Void> salvar(@RequestBody @Valid AutorDTO dto){
+    public ResponseEntity<Void> salvar(@RequestBody @Valid AutorDTO dto, Authentication authentication){
+
         Autor autor = mapper.toEntity(dto);
         service.salvar(autor);
         URI location = gerarHandlerLocation(autor.getId());
