@@ -1,6 +1,5 @@
 package io.github.robledocastro.libraryapi.config;
 
-import ch.qos.logback.core.pattern.color.BoldCyanCompositeConverter;
 import io.github.robledocastro.libraryapi.security.CustomUserDetailsService;
 import io.github.robledocastro.libraryapi.service.UsuarioService;
 import org.springframework.context.annotation.Bean;
